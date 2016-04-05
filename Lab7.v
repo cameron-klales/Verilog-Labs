@@ -20,3 +20,19 @@ module counter_divider (output reg tc, input wire clk, input wire rst);
   end
   
 endmodule
+module ir_emitter_dp (output wire emitter_out, output wire tc_modulator, input wire clk,
+	input wire rst, input wire ena, input wire init_sel, input wire sw_modulator);
+	
+	
+	  reg [3:0] count, next_count;
+	  
+	  always @(posedge clk) begin
+    count <= next_count;
+    end
+    
+    always @* begin
+      if (count == 0) tc_modulator = 1;
+      if(rst == 1) next_count = 0;
+      end
+    emitter_out = tc_modulator * sw_modulator;
+    
